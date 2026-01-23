@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GradeCalc Pro | Ayoub Brkn</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main-wrapper">
+        <nav class="navbar">
+            <div class="logo">Grade<span>Calc</span></div>
+            <div class="user-tag">Created by Ayoub Brkn</div>
+        </nav>
+
+        <div class="content">
+            <header class="hero-section">
+                <h1>Academic Dashboard</h1>
+                <p>Calculate your semester average with precision.</p>
+            </header>
+
+            <div class="dashboard-grid">
+                <div class="input-panel">
+                    <section class="glass-card">
+                        <div class="card-header">
+                            <span class="icon">📝</span>
+                            <h3>Exams <small>(60%)</small></h3>
+                        </div>
+                        <div class="input-grid">
+                            <div class="field"><label>Analysis</label><input type="number" id="a" placeholder="0.00"></div>
+                            <div class="field"><label>Algebra</label><input type="number" id="b" placeholder="0.00"></div>
+                            <div class="field"><label>Physics</label><input type="number" id="c" placeholder="0.00"></div>
+                            <div class="field"><label>Chemistry</label><input type="number" id="d" placeholder="0.00"></div>
+                            <div class="field"><label>IT</label><input type="number" id="e" placeholder="0.00"></div>
+                            <div class="field"><label>Ethics</label><input type="number" id="f" placeholder="0.00"></div>
+                            <div class="field"><label>MST</label><input type="number" id="g" placeholder="0.00"></div>
+                        </div>
+                    </section>
+
+                    <section class="glass-card">
+                        <div class="card-header">
+                            <span class="icon">🛠️</span>
+                            <h3>Practical & TD <small>(40%)</small></h3>
+                        </div>
+                        <div class="input-grid">
+                            <div class="field"><label>Analysis TD</label><input type="number" id="A_td" placeholder="0.00"></div>
+                            <div class="field"><label>Algebra TD</label><input type="number" id="B_td" placeholder="0.00"></div>
+                            <div class="field"><label>Physics TD</label><input type="number" id="C_td" placeholder="0.00"></div>
+                            <div class="field"><label>Chem TD</label><input type="number" id="D_td" placeholder="0.00"></div>
+                            <div class="field"><label>IT TD</label><input type="number" id="E_td" placeholder="0.00"></div>
+                            <div class="field"><label>TP Physics</label><input type="number" id="tpf" placeholder="0.00"></div>
+                            <div class="field"><label>TP Chem</label><input type="number" id="tpc" placeholder="0.00"></div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="sticky-side">
+                    <div class="result-card">
+                        <div class="status-indicator" id="status-dot"></div>
+                        <span class="label">General Average</span>
+                        <div class="score" id="finalMoyen">0.00</div>
+                        <p id="message">Enter notes to calculate</p>
+                        
+                        <div class="btn-group">
+                            <button onclick="calculate()" class="btn-primary">Calculate Result</button>
+                            <button onclick="resetForm()" class="btn-outline">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            © 2026 Crafted with care by <strong>Ayoub Brkn</strong>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
