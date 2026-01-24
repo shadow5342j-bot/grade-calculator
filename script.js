@@ -55,7 +55,7 @@ function calculate() {
 
     if (currentSemester === 1) {
         let f = getV('ex5'), g = getV('ex6'), tpf = getV('td5'), tpc = getV('td6');
-        result = (A1*3 + B2*2 + C3*3 + D4*3 + E5*2 + g + f + tpf + tpc) / 15;
+        result = (A1*3 + B2*2 + C3*3 + D4*3 + E5*2 + g + f + tpf + tpc) / 17;
     } else {
         let f = getV('ex5'), g = getV('ex6'), l = getV('ex7'), L = getV('td5'), tpf = getV('td6'), tpc = getV('td7');
         let L1 = (l * 0.6) + (L * 0.4);
@@ -85,4 +85,5 @@ function resetForm() {
 }
 
 // البدء عند التحميل
+
 renderFields();
