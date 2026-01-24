@@ -2,75 +2,57 @@
 <html lang="ar" dir="rtl" id="mainHtml">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GradeCalc Pro | Ayoub Brkn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GradeCalc Pro</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="dark-theme">
-    <div class="app-container">
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <div class="logo-box">G</div>
-                <h2 class="nav-label">Grade<span>Calc</span></h2>
+    <div class="app-wrapper">
+        <header class="main-header">
+            <div class="logo">Grade<span>Calc</span></div>
+            <div class="quick-controls">
+                <button onclick="toggleTheme()" class="circle-btn"><i id="themeIcon" class="fas fa-sun"></i></button>
+                <button onclick="toggleLanguage()" class="circle-btn"><i class="fas fa-language"></i></button>
             </div>
-            
-            <div class="theme-lang-switches">
-                <button onclick="toggleTheme()" class="icon-btn" title="تغيير المظهر"><i id="themeIcon" class="fas fa-sun"></i></button>
-                <button onclick="toggleLanguage()" class="icon-btn" title="Change Language"><i class="fas fa-globe"></i></button>
-            </div>
+        </header>
 
-            <nav class="side-nav">
-                <button onclick="switchSemester(1)" id="btnS1" class="nav-link active">
-                    <i class="fas fa-layer-group"></i> <span class="lang-txt" data-ar="السداسي الأول" data-en="Semester 1">السداسي الأول</span>
+        <div class="main-layout">
+            <nav class="side-menu">
+                <button onclick="switchSemester(1)" id="btnS1" class="menu-item active">
+                    <i class="fas fa-layer-group"></i> <span class="lang-txt" data-ar="السداسي 1" data-en="Semester 1">السداسي 1</span>
                 </button>
-                <button onclick="switchSemester(2)" id="btnS2" class="nav-link">
-                    <i class="fas fa-layer-group"></i> <span class="lang-txt" data-ar="السداسي الثاني" data-en="Semester 2">السداسي الثاني</span>
+                <button onclick="switchSemester(2)" id="btnS2" class="menu-item">
+                    <i class="fas fa-layer-group"></i> <span class="lang-txt" data-ar="السداسي 2" data-en="Semester 2">السداسي 2</span>
                 </button>
             </nav>
 
-            <div class="sidebar-footer nav-label">
-                <small class="lang-txt" data-ar="تم التطوير بواسطة" data-en="Developed by">تم التطوير بواسطة</small>
-                <p>ayoub BRKN</p>
-            </div>
-        </aside>
-
-        <main class="main-content">
-            <header class="header-bar">
-                <div class="title-area">
-                    <h1 id="semesterTitle" class="lang-txt" data-ar="لوحة التحكم" data-en="Dashboard">لوحة التحكم</h1>
-                    <span class="badge lang-txt" data-ar="نظام 60/40" data-en="60/40 System">نظام 60/40</span>
-                </div>
-                <div class="action-area">
-                    <button onclick="resetForm()" class="btn-ghost lang-txt" data-ar="إعادة تعيين" data-en="Reset">إعادة تعيين</button>
-                    <button onclick="calculate()" class="btn-primary lang-txt" data-ar="تحديث النتيجة" data-en="Update Result">تحديث النتيجة</button>
-                </div>
-            </header>
-
-            <div class="content-grid">
-                <div class="form-side">
-                    <div class="glass-card">
-                        <h3 class="card-head lang-txt" data-ar="الامتحانات الأساسية" data-en="Main Exams">الامتحانات الأساسية</h3>
-                        <div class="input-grid" id="examFields"></div>
+            <main class="content-body">
+                <div class="grid-container">
+                    <div class="inputs-section">
+                        <div class="pro-card">
+                            <h3 class="lang-txt" data-ar="الامتحانات" data-en="Exams">الامتحانات</h3>
+                            <div class="input-grid" id="examFields"></div>
+                        </div>
+                        <div class="pro-card">
+                            <h3 class="lang-txt" data-ar="الأعمال الموجهة" data-en="TD & TP">الأعمال الموجهة</h3>
+                            <div class="input-grid" id="tdFields"></div>
+                        </div>
                     </div>
-                    <div class="glass-card">
-                        <h3 class="card-head">TD & TP</h3>
-                        <div class="input-grid" id="tdFields"></div>
-                    </div>
-                </div>
 
-                <div class="result-side">
-                    <div class="sticky-result">
-                        <div class="score-display">
-                            <span class="lang-txt" data-ar="المعدل النهائي" data-en="Final Average">المعدل النهائي</span>
-                            <h2 id="finalMoyen">0.00</h2>
-                            <div id="statusIndicator" class="status-tag lang-txt" data-ar="بانتظار البيانات" data-en="Waiting for data">بانتظار البيانات</div>
+                    <div class="results-section">
+                        <div class="result-card">
+                            <span class="lang-txt" data-ar="المعدل العام" data-en="GPA">المعدل العام</span>
+                            <div class="score" id="finalMoyen">0.00</div>
+                            <div id="statusIndicator" class="badge">---</div>
+                            <button onclick="calculate()" class="calc-btn lang-txt" data-ar="احسب النتيجة" data-en="Calculate">احسب النتيجة</button>
+                            <button onclick="resetForm()" class="reset-link lang-txt" data-ar="إعادة تعيين" data-en="Reset">إعادة تعيين</button>
                         </div>
                     </div>
                 </div>
-            </div>
-        </main>
+            </main>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>

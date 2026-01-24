@@ -2,8 +2,8 @@ let currentSem = 1;
 let currentLang = 'ar';
 
 const langData = {
-    ar: { s1: "السداسي الأول", s2: "السداسي الثاني", exams1: ["تحليل", "جبر", "فيزياء", "كيمياء", "إعلام آلي", "أخلاقيات", "MST"], exams2: ["تحليل", "جبر", "فيزياء", "كيمياء", "إعلام آلي", "أخلاقيات", "MST", "برمجيات"], tds1: ["تحليل TD", "جبر TD", "فيزياء TD", "كيمياء TD", "إعلام آلي TD", "تطبيقي فيزياء", "تطبيقي كيمياء"], tds2: ["تحليل TD", "جبر TD", "فيزياء TD", "كيمياء TD", "إعلام آلي TD", "برمجيات TD", "تطبيقي فيزياء", "تطبيقي كيمياء"], pass: "ناجح", fail: "راسب" },
-    en: { s1: "Semester 1", s2: "Semester 2", exams1: ["Analysis", "Algebra", "Physics", "Chemistry", "IT", "Ethics", "MST"], exams2: ["Analysis", "Algebra", "Physics", "Chemistry", "IT", "Ethics", "MST", "Software"], tds1: ["Analysis TD", "Algebra TD", "Physics TD", "Chem TD", "IT TD", "Phys TP", "Chem TP"], tds2: ["Analysis TD", "Algebra TD", "Physics TD", "Chem TD", "IT TD", "Software TD", "Phys TP", "Chem TP"], pass: "Passed", fail: "Failed" }
+    ar: { s1: "السداسي 1", s2: "السداسي 2", ex1: ["تحليل", "جبر", "فيزياء", "كيمياء", "إعلام", "أخلاقيات", "MST"], ex2: ["تحليل", "جبر", "فيزياء", "كيمياء", "إعلام", "أخلاقيات", "MST", "برمجيات"], td1: ["تحليل TD", "جبر TD", "فيزياء TD", "كيمياء TD", "إعلام TD", "فيزياء TP", "كيمياء TP"], td2: ["تحليل TD", "جبر TD", "فيزياء TD", "كيمياء TD", "إعلام TD", "برمجيات TD", "فيزياء TP", "كيمياء TP"] },
+    en: { s1: "Semester 1", s2: "Semester 2", ex1: ["Analysis", "Algebra", "Physics", "Chem", "IT", "Ethics", "MST"], ex2: ["Analysis", "Algebra", "Physics", "Chem", "IT", "Ethics", "MST", "Software"], td1: ["Analysis TD", "Algebra TD", "Phys TD", "Chem TD", "IT TD", "Phys TP", "Chem TP"], td2: ["Analysis TD", "Algebra TD", "Phys TD", "Chem TD", "IT TD", "Soft TD", "Phys TP", "Chem TP"] }
 };
 
 function toggleLanguage() {
@@ -15,8 +15,7 @@ function toggleLanguage() {
 
 function toggleTheme() {
     document.body.classList.toggle('light-theme');
-    const icon = document.getElementById('themeIcon');
-    icon.className = document.body.classList.contains('light-theme') ? 'fas fa-moon' : 'fas fa-sun';
+    document.getElementById('themeIcon').className = document.body.classList.contains('light-theme') ? 'fas fa-moon' : 'fas fa-sun';
 }
 
 function switchSemester(s) {
@@ -29,8 +28,8 @@ function switchSemester(s) {
 function renderFields() {
     const exC = document.getElementById('examFields');
     const tdC = document.getElementById('tdFields');
-    exC.innerHTML = langData[currentLang][`exams${currentSem}`].map((n, i) => `<div class="field"><label>${n}</label><input type="number" id="ex${i}" step="0.25"></div>`).join('');
-    tdC.innerHTML = langData[currentLang][`tds${currentSem}`].map((n, i) => `<div class="field"><label>${n}</label><input type="number" id="td${i}" step="0.25"></div>`).join('');
+    exC.innerHTML = langData[currentLang][`ex${currentSem}`].map((n, i) => `<div class="field"><label>${n}</label><input type="number" id="ex${i}" step="0.25"></div>`).join('');
+    tdC.innerHTML = langData[currentLang][`td${currentSem}`].map((n, i) => `<div class="field"><label>${n}</label><input type="number" id="td${i}" step="0.25"></div>`).join('');
 }
 
 function calculate() {
@@ -43,14 +42,13 @@ function calculate() {
 
     document.getElementById('finalMoyen').innerText = res.toFixed(2);
     const st = document.getElementById('statusIndicator');
-    st.innerText = res >= 10 ? langData[currentLang].pass : langData[currentLang].fail;
-    st.style.background = res >= 10 ? "#238636" : "#da3633"; st.style.color = "#fff";
+    st.innerText = res >= 10 ? (currentLang === 'ar' ? "ناجح" : "Passed") : (currentLang === 'ar' ? "راسب" : "Failed");
+    st.style.color = res >= 10 ? "#39d353" : "#f85149";
 }
 
 function resetForm() {
     document.querySelectorAll('input').forEach(i => i.value = '');
     document.getElementById('finalMoyen').innerText = "0.00";
-    document.getElementById('statusIndicator').innerText = langData[currentLang].fail;
 }
 
 renderFields();
