@@ -59,7 +59,7 @@ function calculate() {
     } else {
         let f = getV('ex5'), g = getV('ex6'), l = getV('ex7'), L = getV('td5'), tpf = getV('td6'), tpc = getV('td7');
         let L1 = (l * 0.6) + (L * 0.4);
-        result = (A1*3 + B2*2 + C3*3 + D4*3 + E5*2 + g + f + tpf + tpc + L1) / 17;
+        result = (A1*3 + B2*2 + C3*3 + D4*3 + E5*2 + g + f + tpf + tpc + L1) / 19;
     }
 
     const display = document.getElementById('finalMoyen');
@@ -87,3 +87,4 @@ function resetForm() {
 // البدء عند التحميل
 
 renderFields();
+
