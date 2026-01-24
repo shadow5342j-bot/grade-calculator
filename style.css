@@ -7,52 +7,46 @@
     --border: #30363d;
 }
 
-
-
 * { box-sizing: border-box; margin: 0; padding: 0; transition: 0.3s; }
 body { background: var(--bg-dark); color: #fff; font-family: 'IBM Plex Sans Arabic', sans-serif; direction: rtl; }
 
 .page-layout { display: flex; min-height: 100vh; }
 
-/* Sidebar Styling */
+/* Sidebar - PC */
 .sidebar {
-    width: 280px; background: var(--sidebar-bg); border-left: 1px solid var(--border);
-    padding: 30px 20px; position: fixed; height: 100vh; display: flex; flex-direction: column;
+    width: 260px; background: var(--sidebar-bg); border-left: 1px solid var(--border);
+    padding: 30px 15px; position: fixed; height: 100vh; display: flex; flex-direction: column; z-index: 100;
 }
 
-.brand { display: flex; align-items: center; gap: 15px; margin-bottom: 50px; }
-.logo-icon { background: var(--accent); padding: 10px; border-radius: 10px; }
-
 .nav-item {
-    width: 100%; padding: 15px; background: transparent; border: none;
-    color: var(--text-p); text-align: right; cursor: pointer;
-    display: flex; align-items: center; gap: 12px; border-radius: 10px; margin-bottom: 10px;
+    width: 100%; padding: 15px; background: transparent; border: none; color: var(--text-p);
+    text-align: right; cursor: pointer; display: flex; align-items: center; gap: 12px; border-radius: 10px; margin-bottom: 8px;
 }
 
 .nav-item.active { background: #1f242c; color: var(--accent); font-weight: bold; border-right: 4px solid var(--accent); }
 
 /* Main Area */
-.main-content { margin-right: 280px; flex: 1; padding: 40px; }
-.top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
-.dashboard-grid { display: grid; grid-template-columns: 1fr 320px; gap: 30px; }
+.main-content { margin-right: 260px; flex: 1; padding: 30px; }
+.top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+.dashboard-grid { display: grid; grid-template-columns: 1fr 300px; gap: 25px; }
 
-.pro-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 25px; margin-bottom: 25px; }
-.input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; }
-.field label { font-size: 0.8rem; color: var(--text-p); display: block; margin-bottom: 8px; }
-input { width: 100%; background: #0d1117; border: 1px solid var(--border); border-radius: 8px; padding: 10px; color: #fff; text-align: center; }
+.pro-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin-bottom: 20px; }
+.input-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px; }
+input { width: 100%; background: #0d1117; border: 1px solid var(--border); border-radius: 8px; padding: 12px; color: #fff; text-align: center; font-size: 1rem; }
 
-/* Results */
 .result-sticky-card {
     background: #1c2128; border: 1px solid var(--accent); border-radius: 20px;
-    padding: 40px 20px; text-align: center; position: sticky; top: 40px;
+    padding: 30px 15px; text-align: center; position: sticky; top: 30px;
 }
-.main-score { font-size: 4rem; font-weight: bold; margin: 15px 0; }
-.btn-primary { background: var(--accent); color: #fff; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; }
-.btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--text-p); padding: 12px 20px; border-radius: 8px; cursor: pointer; margin-left: 10px; }
+.main-score { font-size: 3.5rem; font-weight: bold; margin: 10px 0; }
 
-@media (max-width: 900px) {
-    .sidebar { width: 80px; }
-    .sidebar span, .sidebar h2, .sidebar p { display: none; }
-    .main-content { margin-right: 80px; }
-    .dashboard-grid { grid-template-columns: 1fr; }
+/* Mobile Optimizations - شاشات الهواتف */
+@media (max-width: 768px) {
+    .sidebar { width: 70px; padding: 20px 10px; }
+    .hide-mobile { display: none; }
+    .main-content { margin-right: 70px; padding: 20px; }
+    .dashboard-grid { grid-template-columns: 1fr; } /* تحويل النتائج لتصبح تحت الخانات */
+    .top-bar h1 { font-size: 1.2rem; }
+    .nav-item { justify-content: center; padding: 15px 0; }
+    .result-sticky-card { position: relative; top: 0; margin-top: 20px; }
 }
