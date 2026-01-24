@@ -3,7 +3,7 @@ let currentLang = 'ar';
 
 const langData = {
     ar: { s1: "السداسي 1", s2: "السداسي 2", ex1: ["تحليل", "جبر", "فيزياء", "كيمياء", "إعلام", "أخلاقيات", "MST"], ex2: ["تحليل", "جبر", "فيزياء", "كيمياء", "إعلام", "أخلاقيات", "MST", "برمجيات"], td1: ["تحليل TD", "جبر TD", "فيزياء TD", "كيمياء TD", "إعلام TD", "فيزياء TP", "كيمياء TP"], td2: ["تحليل TD", "جبر TD", "فيزياء TD", "كيمياء TD", "إعلام TD", "برمجيات TD", "فيزياء TP", "كيمياء TP"] },
-    en: { s1: "Semester 1", s2: "Semester 2", ex1: ["Analysis", "Algebra", "Physics", "Chem", "IT", "Ethics", "MST"], ex2: ["Analysis", "Algebra", "Physics", "Chem", "IT", "Ethics", "MST", "Software"], td1: ["Analysis TD", "Algebra TD", "Phys TD", "Chem TD", "IT TD", "Phys TP", "Chem TP"], td2: ["Analysis TD", "Algebra TD", "Phys TD", "Chem TD", "IT TD", "Soft TD", "Phys TP", "Chem TP"] }
+    en: { s1: "Semester 1", s2: "Semester 2", ex1: ["Analysis", "Algebra", "Physics", "Chem", "Informatic", "Ethics", "MST"], ex2: ["Analysis", "Algebra", "Physics", "Chem", "IT", "Ethics", "MST", "Software"], td1: ["Analysis TD", "Algebra TD", "Phys TD", "Chem TD", "IT TD", "Phys TP", "Chem TP"], td2: ["Analysis TD", "Algebra TD", "Phys TD", "Chem TD", "IT TD", "Soft TD", "Phys TP", "Chem TP"] }
 };
 
 function toggleLanguage() {
@@ -50,5 +50,6 @@ function resetForm() {
     document.querySelectorAll('input').forEach(i => i.value = '');
     document.getElementById('finalMoyen').innerText = "0.00";
 }
+
 
 renderFields();
