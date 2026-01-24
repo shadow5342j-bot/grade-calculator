@@ -2,8 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GradeCalc Pro | ayoub BRKN</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GradeCalc Pro | أيوب بركن</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -13,19 +13,19 @@
         <aside class="sidebar">
             <div class="brand">
                 <div class="logo-icon"><i class="fas fa-calculator"></i></div>
-                <h2>Grade<span>Calc</span></h2>
+                <h2 class="hide-mobile">Grade<span>Calc</span></h2>
             </div>
             <nav class="side-nav">
-                <button onclick="switchSemester(1)" id="btnS1" class="nav-item active">
-                    <i class="fas fa-layer-group"></i> <span>السداسي الأول</span>
+                <button onclick="switchSemester(1)" id="btnS1" class="nav-item active" title="السداسي الأول">
+                    <i class="fas fa-layer-group"></i> <span class="hide-mobile">السداسي الأول</span>
                 </button>
-                <button onclick="switchSemester(2)" id="btnS2" class="nav-item">
-                    <i class="fas fa-layer-group"></i> <span>السداسي الثاني</span>
+                <button onclick="switchSemester(2)" id="btnS2" class="nav-item" title="السداسي الثاني">
+                    <i class="fas fa-layer-group"></i> <span class="hide-mobile">السداسي الثاني</span>
                 </button>
             </nav>
-            <div class="creator-badge">
+            <div class="creator-badge hide-mobile">
                 <p>المطور</p>
-                <span>ayoub BRKN</span>
+                <span>أيوب بركن</span>
             </div>
         </aside>
 
@@ -33,26 +33,24 @@
             <header class="top-bar">
                 <div class="header-text">
                     <h1 id="semesterTitle">السداسي الأول</h1>
-                    <p>نظام الحساب المعتمد (60/40)</p>
+                    <p>نظام (60/40)</p>
                 </div>
                 <div class="header-actions">
-                    <button onclick="resetForm()" class="btn-secondary">مسح الكل</button>
-                    <button onclick="calculate()" class="btn-primary">حساب المعدل</button>
+                    <button onclick="calculate()" class="btn-primary">حساب</button>
+                    <button onclick="resetForm()" class="btn-secondary"><i class="fas fa-undo"></i></button>
                 </div>
             </header>
 
             <div class="dashboard-grid">
                 <div class="input-panel">
                     <section class="pro-card">
-                        <div class="card-title"><i class="fas fa-edit"></i> الامتحانات (60%)</div>
-                        <div class="input-grid" id="examFields">
-                            </div>
+                        <div class="card-title"><i class="fas fa-edit"></i> الامتحانات</div>
+                        <div class="input-grid" id="examFields"></div>
                     </section>
 
                     <section class="pro-card">
-                        <div class="card-title"><i class="fas fa-tools"></i> TD & TP (40%)</div>
-                        <div class="input-grid" id="tdFields">
-                            </div>
+                        <div class="card-title"><i class="fas fa-tools"></i> TD & TP</div>
+                        <div class="input-grid" id="tdFields"></div>
                     </section>
                 </div>
 
@@ -60,7 +58,7 @@
                     <div class="result-sticky-card">
                         <span class="res-label">المعدل العام</span>
                         <div class="main-score" id="finalMoyen">0.00</div>
-                        <div class="status-box" id="message">بانتظار العلامات...</div>
+                        <div class="status-box" id="message">أدخل العلامات</div>
                     </div>
                 </div>
             </div>
