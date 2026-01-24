@@ -1,64 +1,72 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="mainHtml">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GradeCalc Pro | أيوب بركن</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GradeCalc Pro | Ayoub Brkn</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
-    <div class="page-layout">
+<body class="dark-theme">
+    <div class="app-container">
         <aside class="sidebar">
-            <div class="brand">
-                <div class="logo-icon"><i class="fas fa-calculator"></i></div>
-                <h2 class="hide-mobile">Grade<span>Calc</span></h2>
+            <div class="sidebar-header">
+                <div class="logo-box">G</div>
+                <h2 class="nav-label">Grade<span>Calc</span></h2>
             </div>
+            
+            <div class="theme-lang-switches">
+                <button onclick="toggleTheme()" class="icon-btn" title="تغيير المظهر"><i id="themeIcon" class="fas fa-sun"></i></button>
+                <button onclick="toggleLanguage()" class="icon-btn" title="Change Language"><i class="fas fa-globe"></i></button>
+            </div>
+
             <nav class="side-nav">
-                <button onclick="switchSemester(1)" id="btnS1" class="nav-item active" title="السداسي الأول">
-                    <i class="fas fa-layer-group"></i> <span class="hide-mobile">السداسي الأول</span>
+                <button onclick="switchSemester(1)" id="btnS1" class="nav-link active">
+                    <i class="fas fa-layer-group"></i> <span class="lang-txt" data-ar="السداسي الأول" data-en="Semester 1">السداسي الأول</span>
                 </button>
-                <button onclick="switchSemester(2)" id="btnS2" class="nav-item" title="السداسي الثاني">
-                    <i class="fas fa-layer-group"></i> <span class="hide-mobile">السداسي الثاني</span>
+                <button onclick="switchSemester(2)" id="btnS2" class="nav-link">
+                    <i class="fas fa-layer-group"></i> <span class="lang-txt" data-ar="السداسي الثاني" data-en="Semester 2">السداسي الثاني</span>
                 </button>
             </nav>
-            <div class="creator-badge hide-mobile">
-                <p>المطور</p>
-                <span>أيوب بركن</span>
+
+            <div class="sidebar-footer nav-label">
+                <small class="lang-txt" data-ar="تم التطوير بواسطة" data-en="Developed by">تم التطوير بواسطة</small>
+                <p>ayoub BRKN</p>
             </div>
         </aside>
 
         <main class="main-content">
-            <header class="top-bar">
-                <div class="header-text">
-                    <h1 id="semesterTitle">السداسي الأول</h1>
-                    <p>نظام (60/40)</p>
+            <header class="header-bar">
+                <div class="title-area">
+                    <h1 id="semesterTitle" class="lang-txt" data-ar="لوحة التحكم" data-en="Dashboard">لوحة التحكم</h1>
+                    <span class="badge lang-txt" data-ar="نظام 60/40" data-en="60/40 System">نظام 60/40</span>
                 </div>
-                <div class="header-actions">
-                    <button onclick="calculate()" class="btn-primary">حساب</button>
-                    <button onclick="resetForm()" class="btn-secondary"><i class="fas fa-undo"></i></button>
+                <div class="action-area">
+                    <button onclick="resetForm()" class="btn-ghost lang-txt" data-ar="إعادة تعيين" data-en="Reset">إعادة تعيين</button>
+                    <button onclick="calculate()" class="btn-primary lang-txt" data-ar="تحديث النتيجة" data-en="Update Result">تحديث النتيجة</button>
                 </div>
             </header>
 
-            <div class="dashboard-grid">
-                <div class="input-panel">
-                    <section class="pro-card">
-                        <div class="card-title"><i class="fas fa-edit"></i> الامتحانات</div>
+            <div class="content-grid">
+                <div class="form-side">
+                    <div class="glass-card">
+                        <h3 class="card-head lang-txt" data-ar="الامتحانات الأساسية" data-en="Main Exams">الامتحانات الأساسية</h3>
                         <div class="input-grid" id="examFields"></div>
-                    </section>
-
-                    <section class="pro-card">
-                        <div class="card-title"><i class="fas fa-tools"></i> TD & TP</div>
+                    </div>
+                    <div class="glass-card">
+                        <h3 class="card-head">TD & TP</h3>
                         <div class="input-grid" id="tdFields"></div>
-                    </section>
+                    </div>
                 </div>
 
-                <div class="sidebar-results">
-                    <div class="result-sticky-card">
-                        <span class="res-label">المعدل العام</span>
-                        <div class="main-score" id="finalMoyen">0.00</div>
-                        <div class="status-box" id="message">أدخل العلامات</div>
+                <div class="result-side">
+                    <div class="sticky-result">
+                        <div class="score-display">
+                            <span class="lang-txt" data-ar="المعدل النهائي" data-en="Final Average">المعدل النهائي</span>
+                            <h2 id="finalMoyen">0.00</h2>
+                            <div id="statusIndicator" class="status-tag lang-txt" data-ar="بانتظار البيانات" data-en="Waiting for data">بانتظار البيانات</div>
+                        </div>
                     </div>
                 </div>
             </div>
