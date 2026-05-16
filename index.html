@@ -1,59 +1,130 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" id="mainHtml">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GradeCalc Pro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semester AVG Calculator Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit-id.js" crossorigin="anonymous"></script> 
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="dark-theme">
-    <div class="app-wrapper">
-        <header class="main-header">
-            <div class="logo">Grade<span>Calc</span></div>
-            <div class="quick-controls">
-                <button onclick="toggleTheme()" class="circle-btn"><i id="themeIcon" class="fas fa-sun"></i></button>
-                <button onclick="toggleLanguage()" class="circle-btn"><i class="fas fa-language"></i></button>
+<body>
+
+<div class="app-wrapper">
+    <header class="header">
+        <div class="header-title">
+            <i class="fa-solid fa-graduation-cap logo-icon"></i>
+            <h1 class="app-title">Calculator <span>[Your Name]</span></h1>
+        </div>
+        <div class="controls">
+            <div class="toggle-control" id="theme-toggle" onclick="toggleTheme()">
+                <div class="toggle-option" id="theme-light">
+                    <i class="fa-solid fa-sun"></i>
+                </div>
+                <div class="toggle-option active" id="theme-dark">
+                    <i class="fa-solid fa-moon"></i>
+                </div>
             </div>
-        </header>
+            <div class="toggle-control" id="lang-toggle" onclick="toggleLang()">
+                <div class="toggle-option active" id="lang-en">EN</div>
+                <div class="toggle-option" id="lang-ar">ع</div>
+            </div>
+        </div>
+    </header>
+    
+    <main class="calculator-card">
+        <div class="section-header">
+            <h2 class="section-title" data-i18n="chooseSem">Select Your Semester</h2>
+            <div class="toggle-control" id="sem-toggle" onclick="toggleSemester()">
+                <div class="toggle-option active" id="sem1" data-i18n="sem1Short">S1</div>
+                <div class="toggle-option" id="sem2" data-i18n="sem2Short">S2</div>
+            </div>
+        </div>
 
-        <div class="main-layout">
-            <nav class="side-menu">
-                <button onclick="switchSemester(1)" id="btnS1" class="menu-item active">
-                    <i class="fas fa-layer-group"></i> <span class="lang-txt" data-ar="السداسي 1" data-en="Semester 1">السداسي 1</span>
-                </button>
-                <button onclick="switchSemester(2)" id="btnS2" class="menu-item">
-                    <i class="fas fa-layer-group"></i> <span class="lang-txt" data-ar="السداسي 2" data-en="Semester 2">السداسي 2</span>
-                </button>
-            </nav>
+        <div id="grades-form" class="subject-container">
+            <div class="subject-card">
+                <div class="subject-name"><i class="fa-solid fa-chart-line"></i> <span data-i18n="subjAnalyse">Analyse</span></div>
+                <div class="input-grid">
+                    <div class="field-group"><label data-i18n="td">TD Note</label><div class="field-input-wrapper"><input type="number" id="a_td" step="0.01" placeholder="0.00"><i class="fa-solid fa-user-edit"></i></div></div>
+                    <div class="field-group"><label data-i18n="exam">Exam Note</label><div class="field-input-wrapper"><input type="number" id="a_ex" step="0.01" placeholder="0.00"><i class="fa-solid fa-file-signature"></i></div></div>
+                </div>
+            </div>
 
-            <main class="content-body">
-                <div class="grid-container">
-                    <div class="inputs-section">
-                        <div class="pro-card">
-                            <h3 class="lang-txt" data-ar="الامتحانات" data-en="Exams">الامتحانات</h3>
-                            <div class="input-grid" id="examFields"></div>
-                        </div>
-                        <div class="pro-card">
-                            <h3 class="lang-txt" data-ar="الأعمال الموجهة" data-en="TD & TP">الأعمال الموجهة</h3>
-                            <div class="input-grid" id="tdFields"></div>
-                        </div>
-                    </div>
+            <div class="subject-card">
+                <div class="subject-name"><i class="fa-solid fa-subscript"></i> <span data-i18n="subjAlgebra">Algebra</span></div>
+                <div class="input-grid">
+                    <div class="field-group"><label data-i18n="td">TD Note</label><div class="field-input-wrapper"><input type="number" id="g_td" step="0.01" placeholder="0.00"><i class="fa-solid fa-user-edit"></i></div></div>
+                    <div class="field-group"><label data-i18n="exam">Exam Note</label><div class="field-input-wrapper"><input type="number" id="g_ex" step="0.01" placeholder="0.00"><i class="fa-solid fa-file-signature"></i></div></div>
+                </div>
+            </div>
 
-                    <div class="results-section">
-                        <div class="result-card">
-                            <span class="lang-txt" data-ar="المعدل العام" data-en="GPA">المعدل العام</span>
-                            <div class="score" id="finalMoyen">0.00</div>
-                            <div id="statusIndicator" class="badge">---</div>
-                            <button onclick="calculate()" class="calc-btn lang-txt" data-ar="احسب النتيجة" data-en="Calculate">احسب النتيجة</button>
-                            <button onclick="resetForm()" class="reset-link lang-txt" data-ar="إعادة تعيين" data-en="Reset">إعادة تعيين</button>
-                        </div>
+            <div class="subject-card">
+                <div class="subject-name"><i class="fa-solid fa-atom"></i> <span data-i18n="subjPhysics">Physics</span></div>
+                <div class="input-grid">
+                    <div class="field-group"><label data-i18n="td">TD Note</label><div class="field-input-wrapper"><input type="number" id="ph_td" step="0.01" placeholder="0.00"><i class="fa-solid fa-user-edit"></i></div></div>
+                    <div class="field-group"><label data-i18n="exam">Exam Note</label><div class="field-input-wrapper"><input type="number" id="ph_ex" step="0.01" placeholder="0.00"><i class="fa-solid fa-file-signature"></i></div></div>
+                    <div class="field-group tp-field"><label data-i18n="tp">TP Note</label><div class="field-input-wrapper"><input type="number" id="tpph" step="0.01" placeholder="0.00"><i class="fa-solid fa-flask"></i></div></div>
+                </div>
+            </div>
+
+            <div class="subject-card">
+                <div class="subject-name"><i class="fa-solid fa-vial"></i> <span data-i18n="subjChemistry">Chemistry</span></div>
+                <div class="input-grid">
+                    <div class="field-group"><label data-i18n="td">TD Note</label><div class="field-input-wrapper"><input type="number" id="ch_td" step="0.01" placeholder="0.00"><i class="fa-solid fa-user-edit"></i></div></div>
+                    <div class="field-group"><label data-i18n="exam">Exam Note</label><div class="field-input-wrapper"><input type="number" id="ch_ex" step="0.01" placeholder="0.00"><i class="fa-solid fa-file-signature"></i></div></div>
+                    <div class="field-group tp-field"><label data-i18n="tp">TP Note</label><div class="field-input-wrapper"><input type="number" id="tpch" step="0.01" placeholder="0.00"><i class="fa-solid fa-eye-dropper"></i></div></div>
+                </div>
+            </div>
+
+            <div class="subject-card">
+                <div class="subject-name"><i class="fa-solid fa-desktop"></i> <span data-i18n="subjInfo">Informatique</span></div>
+                <div class="input-grid">
+                    <div class="field-group"><label data-i18n="td">TD Note</label><div class="field-input-wrapper"><input type="number" id="in_td" step="0.01" placeholder="0.00"><i class="fa-solid fa-user-edit"></i></div></div>
+                    <div class="field-group"><label data-i18n="exam">Exam Note</label><div class="field-input-wrapper"><input type="number" id="in_ex" step="0.01" placeholder="0.00"><i class="fa-solid fa-file-signature"></i></div></div>
+                </div>
+            </div>
+
+            <div id="sem1-only" class="subject-container" style="grid-column: 1 / -1; margin-bottom: 0;">
+                <div class="subject-card">
+                    <div class="subject-name"><i class="fa-solid fa-balance-scale"></i> <span data-i18n="subjEthique">Ethique</span></div>
+                    <div class="input-grid">
+                        <div class="field-group tp-field"><label data-i18n="examOnly">Final Note</label><div class="field-input-wrapper"><input type="number" id="et" step="0.01" placeholder="0.00"><i class="fa-solid fa-award"></i></div></div>
                     </div>
                 </div>
-            </main>
+                <div class="subject-card">
+                    <div class="subject-name"><i class="fa-solid fa-tools"></i> <span data-i18n="subjMetiers">Les métiers</span></div>
+                    <div class="input-grid">
+                        <div class="field-group tp-field"><label data-i18n="examOnly">Final Note</label><div class="field-input-wrapper"><input type="number" id="l" step="0.01" placeholder="0.00"><i class="fa-solid fa-award"></i></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="sem2-only" class="subject-container hidden" style="grid-column: 1 / -1; margin-bottom: 0;">
+                <div class="subject-card">
+                    <div class="subject-name"><i class="fa-solid fa-code-branch"></i> <span data-i18n="subjFreeSoft">Free Software</span></div>
+                    <div class="input-grid">
+                        <div class="field-group"><label data-i18n="td">TD Note</label><div class="field-input-wrapper"><input type="number" id="f_td" step="0.01" placeholder="0.00"><i class="fa-solid fa-user-edit"></i></div></div>
+                        <div class="field-group"><label data-i18n="exam">Exam Note</label><div class="field-input-wrapper"><input type="number" id="f_ex" step="0.01" placeholder="0.00"><i class="fa-solid fa-file-signature"></i></div></div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <script src="script.js"></script>
+
+        <button class="btn-calculate" onclick="calculate()" data-i18n="btnCalc">Calculate Final Average</button>
+
+        <div id="result-panel" class="result-panel">
+            <div class="result-message-area">
+                <div class="result-title" id="result-title"></div>
+                <div class="result-subtitle" id="result-subtitle" data-i18n="resultMsg">Your final average for this semester is:</div>
+            </div>
+            <div class="avg-badge">
+                <span id="final-avg-value">0.00</span>
+                <span data-i18n="avgLabel">Average</span>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

@@ -1,57 +1,143 @@
-let currentSem = 1;
-let currentLang = 'ar';
-
-const langData = {
-    ar: { s1: "السداسي 1", s2: "السداسي 2", ex1: ["تحليل", "جبر", "فيزياء", "كيمياء", "إعلام", "أخلاقيات", "MST"], ex2: ["تحليل", "جبر", "فيزياء", "كيمياء", "إعلام", "أخلاقيات", "MST", "برمجيات"], td1: ["تحليل TD", "جبر TD", "فيزياء TD", "كيمياء TD", "إعلام TD", "فيزياء TP", "كيمياء TP"], td2: ["تحليل TD", "جبر TD", "فيزياء TD", "كيمياء TD", "إعلام TD", "برمجيات TD", "فيزياء TP", "كيمياء TP"] },
-    en: { s1: "Semester 1", s2: "Semester 2", ex1: ["Analysis", "Algebra", "Physics", "Chem", "Informatique", "Ethics", "MST"], ex2: ["Analysis", "Algebra", "Physics", "Chem", "Informatique", "Ethics", "MST", "Software"], td1: ["Analysis TD", "Algebra TD", "Phys TD", "Chem TD", "Informatique TD", "Phys TP", "Chem TP"], td2: ["Analysis TD", "Algebra TD", "Phys TD", "Chem TD", "Informatique TD", "Soft TD", "Phys TP", "Chem TP"] }
+// --- STATE MANAGEMENT ---
+let state = {
+    isDark: true, // Default to dark mode state
+    currentLang: 'en',
+    currentSem: '1',
+    calcResult: null
 };
 
-function toggleLanguage() {
-    currentLang = currentLang === 'ar' ? 'en' : 'ar';
-    document.getElementById('mainHtml').dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-    document.querySelectorAll('.lang-txt').forEach(el => el.innerText = el.getAttribute(`data-${currentLang}`));
-    switchSemester(currentSem);
-}
+const translations = {
+    en: {
+        title: "AVG Calculator",
+        chooseSem: "Select Your Semester",
+        sem1Short: "S1",
+        sem2Short: "S2",
+        td: "TD Note",
+        exam: "Exam Note",
+        tp: "TP Note",
+        examOnly: "Final Note",
+        subjAnalyse: "Analyse",
+        subjAlgebra: "Algebra",
+        subjPhysics: "Physics",
+        subjChemistry: "Chemistry",
+        subjInfo: "Informatique",
+        subjEthique: "Ethique",
+        subjMetiers: "Les métiers",
+        subjFreeSoft: "Free Software",
+        btnCalc: "Calculate Final Average",
+        resultPassTitle: "Congratulations!",
+        resultFailTitle: "Keep Trying!",
+        resultMsg: "Your final average for this semester is:",
+        avgLabel: "Average"
+    },
+    ar: {
+        title: "حاسبة المعدل",
+        chooseSem: "اختر الفصل الدراسي",
+        sem1Short: "ف١",
+        sem2Short: "ف٢",
+        td: "علامة TD",
+        exam: "علامة الامتحان",
+        tp: "علامة TP",
+        examOnly: "العلامة",
+        subjAnalyse: "التحليل (Analyse)",
+        subjAlgebra: "الجبر (Algebra)",
+        subjPhysics: "الفيزياء",
+        subjChemistry: "الكيمياء",
+        subjInfo: "الإعلام الآلي",
+        subjEthique: "الأخلاقيات (Ethique)",
+        subjMetiers: "المهن",
+        subjFreeSoft: "برمجيات حرة",
+        btnCalc: "احسب المعدل النهائي",
+        resultPassTitle: "ألف مبروك!",
+        resultFailTitle: "حظ أوفر!",
+        resultMsg: "معدلك النهائي لهذا الفصل هو:",
+        avgLabel: "المعدل"
+    }
+};
 
+// --- UTILITIES ---
+const getVal = (id) => parseFloat(document.getElementById(id).value) || 0;
+const updateActiveToggle = (parent, activeId) => {
+    parent.querySelectorAll('.toggle-option').forEach(el => el.classList.remove('active'));
+    document.getElementById(activeId).classList.add('active');
+};
+
+// --- UI INTERACTION FUNCTIONS ---
 function toggleTheme() {
-    document.body.classList.toggle('light-theme');
-    document.getElementById('themeIcon').className = document.body.classList.contains('light-theme') ? 'fas fa-moon' : 'fas fa-sun';
+    state.isDark = !state.isDark;
+    if (state.isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        updateActiveToggle(document.getElementById('theme-toggle'), 'theme-dark');
+    } else {
+        document.documentElement.removeAttribute('data-theme');
+        updateActiveToggle(document.getElementById('theme-toggle'), 'theme-light');
+    }
 }
 
-function switchSemester(s) {
-    currentSem = s;
-    document.getElementById('btnS1').classList.toggle('active', s === 1);
-    document.getElementById('btnS2').classList.toggle('active', s === 2);
-    renderFields();
+function toggleLang() {
+    state.currentLang = state.currentLang === 'en' ? 'ar' : 'en';
+    document.body.dir = state.currentLang === 'ar' ? 'rtl' : 'ltr';
+    updateActiveToggle(document.getElementById('lang-toggle'), `lang-${state.currentLang}`);
+    updateLanguage();
 }
 
-function renderFields() {
-    const exC = document.getElementById('examFields');
-    const tdC = document.getElementById('tdFields');
-    exC.innerHTML = langData[currentLang][`ex${currentSem}`].map((n, i) => `<div class="field"><label>${n}</label><input type="number" id="ex${i}" step="0.25"></div>`).join('');
-    tdC.innerHTML = langData[currentLang][`td${currentSem}`].map((n, i) => `<div class="field"><label>${n}</label><input type="number" id="td${i}" step="0.25"></div>`).join('');
-}
-
-function calculate() {
-    const gV = (id) => parseFloat(document.getElementById(id).value) || 0;
-    let A1 = (gV('ex0')*0.6) + (gV('td0')*0.4), B2 = (gV('ex1')*0.6) + (gV('td1')*0.4), C3 = (gV('ex2')*0.6) + (gV('td2')*0.4), D4 = (gV('ex3')*0.6) + (gV('td3')*0.4), E5 = (gV('ex4')*0.6) + (gV('td4')*0.4);
+function toggleSemester() {
+    state.currentSem = state.currentSem === '1' ? '2' : '1';
+    updateActiveToggle(document.getElementById('sem-toggle'), `sem${state.currentSem}`);
     
-    let res = (currentSem === 1) 
-        ? (A1*3 + B2*2 + C3*3 + D4*3 + E5*2 + gV('ex5') + gV('ex6') + gV('td5') + gV('td6')) / 17
-        : (A1*3 + B2*2 + C3*3 + D4*3 + E5*2 + gV('ex5') + gV('ex6') + gV('td6') + gV('td7') + ((gV('ex7')*0.6)+(gV('td5')*0.4))) / 19;
-
-    document.getElementById('finalMoyen').innerText = res.toFixed(2);
-    const st = document.getElementById('statusIndicator');
-    st.innerText = res >= 10 ? (currentLang === 'ar' ? "ناجح" : "Passed") : (currentLang === 'ar' ? "راسب" : "Failed");
-    st.style.color = res >= 10 ? "#39d353" : "#f85149";
+    if (state.currentSem === '1') {
+        document.getElementById('sem1-only').classList.remove('hidden');
+        document.getElementById('sem2-only').classList.add('hidden');
+    } else {
+        document.getElementById('sem1-only').classList.add('hidden');
+        document.getElementById('sem2-only').classList.remove('hidden');
+    }
+    
+    // Clear old result on semester change
+    state.calcResult = null;
+    document.getElementById('result-panel').classList.remove('show', 'result-pass', 'result-fail');
 }
 
-function resetForm() {
-    document.querySelectorAll('input').forEach(i => i.value = '');
-    document.getElementById('finalMoyen').innerText = "0.00";
+function updateLanguage() {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        el.innerText = translations[state.currentLang][el.getAttribute('data-i18n')];
+    });
+    
+    if (state.calcResult !== null) displayResult(state.calcResult);
 }
 
+// --- CALCULATION & RESULT ---
+function calculate() {
+    const sa = getVal('a_td') * 0.4 + getVal('a_ex') * 0.6;
+    const sg = getVal('g_td') * 0.4 + getVal('g_ex') * 0.6;
+    const sph = getVal('ph_td') * 0.4 + getVal('ph_ex') * 0.6;
+    const sch = getVal('ch_td') * 0.4 + getVal('ch_ex') * 0.6;
+    const sin = getVal('in_td') * 0.4 + getVal('in_ex') * 0.6;
+    
+    const tpph = getVal('tpph');
+    const tpch = getVal('tpch');
 
-renderFields();
+    let savg = 0;
 
+    if (state.currentSem === '1') {
+        savg = (sa*3 + sg*2 + sin*2 + sph*3 + sch*3 + tpph + tpch + getVal('et') + getVal('l')) / 17;
+    } else {
+        const sf = getVal('f_td') * 0.4 + getVal('f_ex') * 0.6;
+        savg = (sa*3 + sg*2 + sin*2 + sph*3 + sch*3 + tpph + tpch + sf*2) / 17;
+    }
 
+    state.calcResult = savg.toFixed(2);
+    displayResult(state.calcResult);
+}
+
+function displayResult(avgValue) {
+    const passed = avgValue >= 10;
+    const panel = document.getElementById('result-panel');
+    
+    panel.className = 'result-panel show ' + (passed ? 'result-pass' : 'result-fail');
+    document.getElementById('result-title').innerText = translations[state.currentLang][passed ? 'resultPassTitle' : 'resultFailTitle'];
+    document.getElementById('final-avg-value').innerText = avgValue;
+}
+
+// --- INITIALIZATION ---
+updateLanguage();
